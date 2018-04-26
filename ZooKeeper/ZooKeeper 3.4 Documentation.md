@@ -1,6 +1,6 @@
 # ZooKeeper #
 
-## Overview ##
+## 概述 ##
 
 ### 设计目标 ###
 
@@ -8,7 +8,7 @@
 | ------------------------------------------------------------ |
 | ![Alt text](http://zookeeper.apache.org/doc/current/images/zkservice.jpg) |
 
-## Getting Started ##
+## 入门 ##
 
 ### 脱机操作 ###
 
