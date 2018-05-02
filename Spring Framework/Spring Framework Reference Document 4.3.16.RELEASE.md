@@ -52,6 +52,14 @@ Spring配置由容器必须管理的至少一个和通常不止一个的bean定�
 ApplicationContext context = new ClassPathXmlApplication("services.xml", "daos.xml");
 ```
 
+
+
+> Spring 
+
+
+
+
+
 下面的示例展示了服务层对象`(services.xml)`配置文件：
 
 ```xml
@@ -98,6 +106,38 @@ ApplicationContext context = new ClassPathXmlApplication("services.xml", "daos.x
 ```
 
 在上面的示例中，服务层包含`PetStoreServiceImpl`类，和类型为`JpaAccountDao`和`JpaItemDao`的两个数据存储对象（基于JPA对象/关系映射标准）。
+
+#### 基于XML配置元数据的构成 ####
+
+把bean跨越多个XML文件定义也是可用的。通常，每个单独的XML配置文件表示你架构中的一个逻辑层或模块。
+
+你可以使用应用上下文构造函数从这些XML片段去加载 bean 定义。构造函数使用多个`Resource`路径，如上一节所示。或者，使用一个或多个出现的`<import/>`元素从其他一个或多个文件去加载 bean 定义。比如：
+
+```xml
+<beans>
+    <import resource="services.xml"/>
+    <import resource="resources/messageSource.xml"/>
+    <import resource="/resources/themeSource.xml"/>
+
+    <bean id="bean1" class="..."/>
+    <bean id="bean2" class="..."/>
+</beans>
+```
+
+在上面的例子中，其他 bean 定义 从三个文件中被加载：`service.xml`，`messageSource.xml`和`themeSource.xml`。
+
+### 7.4.4 懒加载 beans ###
+
+在XML中，这个行为由`<bean/>`元素上的`lazy-init`属性控制，比如：
+
+```xml
+<bean id="lazy" class="com.foo.ExpensiveToCreateBean" lazy-init="true"/>
+<bean name="not.lazy" class="com.foo.AnotherBean"/>
+```
+
+当一个`ApplicationContext`用了上述配置，这个叫`lazy`的bean在`ApplicationContext`启动的时候就不急于预实例化，而`not.lazy`bean则预实例化。
+
+但是，当一个懒加载bean
 
 ## ApplicationContext的附加功能 ##
 
